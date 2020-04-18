@@ -34,7 +34,7 @@ pipeline{
                         script {
                             dir("/usr/bin/") {
                                 echo "========executing Source Code Build========"
-                                sh 'dotnet build "${WORKSPACE}\kk-windows-proj.csproj"'
+                                sh 'dotnet build "${WORKSPACE}"\kk-windows-proj.csproj'
                             }
                         }
                     }
@@ -44,7 +44,7 @@ pipeline{
                         script {
                             dir("/usr/bin/") {
                                 echo "========executing Source Code Publish========"
-                                sh 'dotnet publish -c Release "${WORKSPACE}\kk-windows-proj.csproj"'
+                                sh 'dotnet publish -c Release "${WORKSPACE}"\kk-windows-proj.csproj'
                             }
                         }
                     }

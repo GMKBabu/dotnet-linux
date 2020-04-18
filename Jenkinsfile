@@ -49,9 +49,9 @@ pipeline{
                     steps {
                         script {
                             echo "========executing Source Code Build========"
-                            sh '''
+                            sh """
                                 zip -r  ${WORKSPACE}/source.zip ${WORKSPACE}/bin/Release/netcoreapp3.1/publish/*
-                            '''
+                            """
                         }
                     }
                 }

@@ -33,7 +33,7 @@ pipeline{
                     steps {
                         script {
                                 echo "========executing Source Code Build========"
-                                sh "dotnet build ${WORKSPACE}/kk-windows-proj.csproj"
+                                sh "sudo dotnet build ${WORKSPACE}/kk-windows-proj.csproj"
                         }
                     }
                 }
@@ -41,7 +41,7 @@ pipeline{
                     steps {
                         script {
                                 echo "========executing Source Code Publish========"
-                                sh "dotnet publish -c Release ${WORKSPACE}/kk-windows-proj.csproj"
+                                sh "sudo dotnet publish -c Release ${WORKSPACE}/kk-windows-proj.csproj"
                         }
                     }
                 }

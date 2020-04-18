@@ -27,25 +27,17 @@ pipeline{
                 }
             }
         }
-        stage("Build"){
-            parallel {
-                stage("Build code"){
-                    steps{
-                        echo "====++++executing Source Code Build=++++===="
-                        sh "sudo dotnet build ${WORKSPACE}/kk-windows-proj.csproj"
-                    }
-                }
-                stage("Build Publish"){
-                    steps{
-                        echo "====++++executing Source Code Publish++++===="
-                        sh "sudo dotnet publish -c Release ${WORKSPACE}/kk-windows-proj.csproj"
-                    }
-                }
-                stage("Zip Publish files"){
-                    steps {
-                        echo "====++++executing Source Code Zip Publish files++++===="
-                        sh "zip -r  ${WORKSPACE}/source.zip ${WORKSPACE}/bin/Release/netcoreapp3.1/publish/*"
-                    }
+        stage("Build") {
+            steps {
+                script {
+                    echo "====++++executing Source Code Build=++++===="
+                    sh "sudo dotnet build ${WORKSPACE}/kk-windows-proj.csproj"
+
+                    echo "====++++executing Source Code Publish++++===="
+                    sh "sudo dotnet publish -c Release ${WORKSPACE}/kk-windows-proj.csproj"
+
+                    echo "====++++executing Source Code Zip Publish files++++===="
+                    sh "zip -r  ${WORKSPACE}/source.zip ${WORKSPACE}/bin/Release/netcoreapp3.1/publish/*"
                 }
             }
         }

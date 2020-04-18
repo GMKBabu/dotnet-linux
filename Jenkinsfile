@@ -49,11 +49,20 @@ pipeline{
                     steps {
                         script {
                             echo "========executing Source Code Zip Publish files========"
-                            sh """
-                                zip -r  ${WORKSPACE}/source.zip ${WORKSPACE}/bin/Release/netcoreapp3.1/publish/*
-                            """
+                            sh '''
+                                "zip -r  ${WORKSPACE}/source.zip ${WORKSPACE}/bin/Release/netcoreapp3.1/publish/*"
+                            '''
                         }
                     }
+                }
+            }
+        }
+		stage("upload zip file to github") {
+            steps {
+                script {
+                    sh '''
+                    echo  "hi"
+                    '''
                 }
             }
         }

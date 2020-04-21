@@ -6,6 +6,7 @@ pipeline{
         GITLAB_URL = "https://github.com/GMKBabu/dotnet-linux.git"
         GITLAB_CREDENTIALS = "cdb56ac9-d618-4df0-a85f-c41eb9647ef3"
         CUSTOM_BUILD_NUMBER = "DEV-PRD-${BUILD_NUMBER}"
+        ARTIFACT_BUCKET_NAME = "artifact-s3-repository"
     }
     parameters {
         string (name: 'GITLAB_BRANCH_NAME', defaultValue: 'master', description: 'Git branch to build')
@@ -45,8 +46,8 @@ pipeline{
         stage("upload artifcat to s3") {
             steps {
                 script {
-                    echo "====++++executing Upoad artifacts to S3++++===="
-                    def s3Publish = s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 'artifact-s3-repository/${JOB_NAME}-${BUILD_NUMBER}', excludedFile: '${WORKSPACE}', flatten: false, gzipFiles: false, keepForever: true, managedArtifacts: true, noUploadOnFailure: true, selectedRegion: 'ap-south-1', showDirectlyInBrowser: true, sourceFile: '**/source.zip', storageClass: 'STANDARD', uploadFromSlave: false, useServerSideEncryption: false]], pluginFailureResultConstraint: 'FAILURE', profileName: 's3fullaccess', userMetadata: []
+                    echo "====++++executing Upload artifacts to S3++++===="
+                    def s3Publish = s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: '${ARTIFACT_BUCKET_NAME}/${JOB_NAME}-${BUILD_NUMBER}', excludedFile: '${WORKSPACE}', flatten: false, gzipFiles: false, keepForever: true, managedArtifacts: false, noUploadOnFailure: true, selectedRegion: 'ap-south-1', showDirectlyInBrowser: true, sourceFile: '**/source.zip', storageClass: 'STANDARD', uploadFromSlave: false, useServerSideEncryption: false]], pluginFailureResultConstraint: 'FAILURE', profileName: 's3fullaccess', userMetadata: []
                 }
             }
         }
